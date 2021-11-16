@@ -92,14 +92,16 @@ int TM_OUT              = 64;    //receive time out no activity on bus
   #define TOUT  (TM_OUT)
 #endif
 
-static inline uint32_t _getCycleCount32()
+static inline uint32_t cpu_ll_get_cycle_count(void)
 {
-  uint32_t ccount = cpu_hal_get_cycle_count();
-  return  ccount;
+    uint32_t result;
+    RSR(CCOUNT, result);
+    return result;
 }
+
 static inline uint8_t _getCycleCount8d8(void)
 {
-  uint32_t ccount = cpu_hal_get_cycle_count();
+  uint32_t ccount = cpu_ll_get_cycle_count();
   return ccount>>3;
 }
 
